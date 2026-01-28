@@ -1,10 +1,11 @@
 from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey
 from sqlalchemy.orm import relationship
-from db import database
+import app.db.database as database 
+
 Base = database.Base
 
 
-class resultado(Base):
+class Resultado(Base):
     __tablename__="resultados"
     id = Column(Integer, primary_key=True, index=True)
     tipo = Column(String, nullable=False)

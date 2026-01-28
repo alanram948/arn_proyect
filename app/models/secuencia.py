@@ -1,9 +1,10 @@
 from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey
 from sqlalchemy.orm import relationship
-from db import database
+import app.db.database as database 
+
 Base = database.Base
 
-class secuencia(Base):
+class Secuencia(Base):
     __tablename__="secuencias"
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, nullable=False)
