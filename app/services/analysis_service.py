@@ -11,11 +11,13 @@ class analisis():
         self.dato_cadena=db.query(Secuencia).filter(Secuencia.id==self.id_cadena).first()
         self.cadena_arn = self.dato_cadena.cadena
     def limpieza(self):
+        #se eliminan espacios y se normaliza a mayusculas
         self.cadena_arn = self.cadena_arn.replace(" ", "")
         self.cadena_arn = self.cadena_arn.upper()
         return self.cadena_arn
 
     def validacion(self):
+        #marca si la cadena contiene los caracteres esperados
         cadena = self.limpieza()
         for i in cadena:
             if i != 'A' and i != 'U' and i != 'G' and i != 'C':
@@ -28,16 +30,21 @@ class analisis():
             #modulo de ia
             respuesta=predict(self.cadena_arn)
         else:
-            #detecta error y genera solucion(pendiente)
-            pass
+            return False;
         return respuesta
     
     def genera_dato(self):
         respuesta=self.paso_a_ia()
-        construccion_base=Resultado(tipo=respuesta[0], probabilidad=respuesta[1], cadena_id= self.id_cadena)
+        if respuesta==False:
+            return False
+        else:
+            construccion_base=Resultado(tipo=respuesta[0], probabilidad=respuesta[1], cadena_id= self.id_cadena)
         return construccion_base    
     def guardar_dato(self):
         data=self.genera_dato()
-        self.db.add(data)
+        if data==False:
+            return False
+        else:
+            self.db.add(data)
         return data
         
