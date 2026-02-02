@@ -18,12 +18,14 @@ class analisis():
 
     def validacion(self):
         #marca si la cadena contiene los caracteres esperados
+        caracteres={"A", "U", "G", "C"}
         cadena = self.limpieza()
-        for i in cadena:
-            if i != 'A' and i != 'U' and i != 'G' and i != 'C':
-                return False
+        if not 20<len(cadena)<10000:
+            return False
+        if all(base in caracteres for base in cadena):
+            return True
+        return False
         
-        return True
     
     def paso_a_ia(self):
         if self.validacion():

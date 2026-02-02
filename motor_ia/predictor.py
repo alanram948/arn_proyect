@@ -1,3 +1,4 @@
+#revision/prediccion provisional 
 def predict(cadena):
     longitud = len(cadena)
 
